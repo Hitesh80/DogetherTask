@@ -14,8 +14,10 @@ import rx.Observable;
  */
 
 public interface ApiService {
-    @GET("/users/{user}/repos")
-    Observable<List<GitHubRepoIssue>> getRepositriesIssue(@Path("user") String userName);
+    @GET("/repos/{owner}/{repoName}/issues")
+    Observable<List<GitHubRepoIssue>> getRepositriesIssue(@Path("owner") String owner,
+                                                          @Path("repoName") String repoName
+                                                          );
 
     @GET("/repos/{owner}/{repoName}")
     Observable<GitHubRepository> getSingleRepo(@Path("owner") String owner,

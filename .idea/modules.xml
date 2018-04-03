@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/DogetherTask.iml" filepath="$PROJECT_DIR$/DogetherTask.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dogether.iml" filepath="$PROJECT_DIR$/dogether.iml" />
     </modules>
   </component>
 </project>

@@ -57,8 +57,10 @@ public class GitHubClient {
         return instance;
     }
 
-    public Observable<List<GitHubRepoIssue>> getReposIssue(@NonNull String RepoName) {
-        return apiService.getRepositriesIssue(RepoName);
+    public Observable<List<GitHubRepoIssue>> getReposIssue(@NonNull String repoName) {
+        String owner=repoName.trim().substring(0,repoName.indexOf('/'));
+        String rName=repoName.substring(repoName.indexOf('/')+1);
+        return apiService.getRepositriesIssue(owner,rName);
     }
 
     public Observable<GitHubRepository> getSingleRepo(@NonNull String repoName) {

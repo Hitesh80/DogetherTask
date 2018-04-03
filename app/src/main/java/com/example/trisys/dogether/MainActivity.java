@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private Subscription subscription;
     private TextView currentRepoName;
     private GitHubRepository githubRepo;
+    private String repoIsuueUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void getRepository(String repoName) {
+    private void getRepository(final String repoName) {
         subscription = GitHubClient.getInstance()
                 .getSingleRepo(repoName)
                 .subscribeOn(Schedulers.io())
@@ -62,7 +63,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onCompleted() {
                         Log.d(TAG, "In onCompleted()");
-                        currentRepoName.setText(githubRepo.getName());
+                        currentRepoName.setText(githubRepo.getName().toUpperCase()+"  Repo Issues List");
+                        //repoIsuueUrl=githubRepo.getIssues_url();
+                        getReposIssuesList(repoName);
 
                     }
 
@@ -91,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    private void getStarredRepos(String repoName) {
+    private void getReposIssuesList(String repoName) {
         subscription = GitHubClient.getInstance()
                 .getReposIssue(repoName)
                 .subscribeOn(Schedulers.io())

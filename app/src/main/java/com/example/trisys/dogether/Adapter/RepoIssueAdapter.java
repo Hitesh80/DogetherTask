@@ -77,7 +77,7 @@ public class RepoIssueAdapter extends BaseAdapter {
 
         public void setGitHubRepo(GitHubRepoIssue gitHubRepoIssue) {
             textRepoIssueName.setText(gitHubRepoIssue.title);
-            textRepoIssueCommentUrl.setText("Comments Url"+gitHubRepoIssue.comments_url);
+            textRepoIssueCommentUrl.setText("Comments Url: "+gitHubRepoIssue.comments_url);
             textIssueState.setText("State: " + gitHubRepoIssue.state);
             textIssueCreatedAt.setText("Created at: " + gitHubRepoIssue.created_at);
         }
