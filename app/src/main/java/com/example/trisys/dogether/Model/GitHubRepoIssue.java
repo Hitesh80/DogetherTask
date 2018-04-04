@@ -5,9 +5,10 @@ package com.example.trisys.dogether.Model;
  */
 
 public class GitHubRepoIssue {
-   public String title;
-   public int number;
-   public String state;
+    private String title;
+    private int number;
+    private String state;
+    private int id;
 
     public String getTitle() {
         return title;
@@ -52,4 +53,11 @@ public class GitHubRepoIssue {
     public String created_at;
    public String comments_url;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

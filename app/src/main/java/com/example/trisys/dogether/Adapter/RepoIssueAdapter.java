@@ -1,6 +1,7 @@
 package com.example.trisys.dogether.Adapter;
 
 import android.support.annotation.Nullable;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.trisys.dogether.Model.GitHubRepoIssue;
 import com.example.trisys.dogether.R;
+import com.example.trisys.dogether.Utils.RepoIssueDiffCallBack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +28,12 @@ public class RepoIssueAdapter extends RecyclerView.Adapter<RepoIssueAdapter.GitH
         if (repos == null) {
             return;
         }
-        gitHubRepoIssues.clear();
-        gitHubRepoIssues.addAll(repos);
-        notifyDataSetChanged();
+        final RepoIssueDiffCallBack diffCallback = new RepoIssueDiffCallBack(this.gitHubRepoIssues, repos);
+        final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
+        this.gitHubRepoIssues.clear();
+        this.gitHubRepoIssues.addAll(repos);
+       // notifyDataSetChanged();
+        diffResult.dispatchUpdatesTo(this);
     }
 
     @Override
@@ -47,10 +52,10 @@ public class RepoIssueAdapter extends RecyclerView.Adapter<RepoIssueAdapter.GitH
     @Override
     public void onBindViewHolder(GitHubRepoViewHolder holder, int position) {
         GitHubRepoIssue gitHubRepoIssue = gitHubRepoIssues.get(position);
-        holder.textRepoIssueName.setText(gitHubRepoIssue.title);
-        holder.textRepoIssueCommentUrl.setText("Comments Url: " + gitHubRepoIssue.comments_url);
-        holder.textIssueState.setText("State: " + gitHubRepoIssue.state);
-        holder.textIssueCreatedAt.setText("Created at: " + gitHubRepoIssue.created_at);
+        holder.textRepoIssueName.setText(position+1+"."+gitHubRepoIssue.getTitle());
+        holder.textRepoIssueCommentUrl.setText("Comments Url: " + gitHubRepoIssue.getComments_url());
+        holder.textIssueState.setText("State: " + gitHubRepoIssue.getState());
+        holder.textIssueCreatedAt.setText("Created at: " + gitHubRepoIssue.getCreated_at());
     }
 
     public static class GitHubRepoViewHolder extends RecyclerView.ViewHolder {
