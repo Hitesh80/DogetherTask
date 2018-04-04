@@ -1,5 +1,6 @@
 package com.example.trisys.dogether;
 
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.trisys.dogether.Adapter.RepoIssueAdapter;
 import com.example.trisys.dogether.Model.GitHubRepoIssue;
@@ -33,14 +35,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView currentRepoName;
     private GitHubRepository githubRepo;
     private String repoIsuueUrl;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        final ListView listView = findViewById(R.id.list_view_repos);
-//        listView.setAdapter(adapter);
+        progressDialog = new ProgressDialog(MainActivity.this);
         final RecyclerView recyclerView = findViewById(R.id.list_view_repos);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -55,7 +57,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final String repoName = editTextRepoName.getText().toString();
                 if (!TextUtils.isEmpty(repoName)) {
-
+                    if (progressDialog != null) {
+                        progressDialog.setMessage("Please wait...");
+                        progressDialog.setCancelable(false);
+                        progressDialog.show();
+                    }
                     getRepository(repoName);
                 }
             }
@@ -71,8 +77,11 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onCompleted() {
                         Log.d(TAG, "In onCompleted()");
+
+
                         currentRepoName.setText(githubRepo.getName().toUpperCase()+"  Repo Issues List");
                         //repoIsuueUrl=githubRepo.getIssues_url();
+
                         getReposIssuesList(repoName);
 
                     }
@@ -80,6 +89,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
+                        progressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
+
                         Log.d(TAG, "In onError()");
                     }
 
@@ -87,9 +99,6 @@ public class MainActivity extends AppCompatActivity {
                     public void onNext(GitHubRepository gitHubRepos) {
                         githubRepo=gitHubRepos;
                         Log.d(TAG, "In onNext()");
-
-
-
                     }
                 });
     }
@@ -110,6 +119,8 @@ public class MainActivity extends AppCompatActivity {
                 .subscribe(new Observer<List<GitHubRepoIssue>>() {
                     @Override
                     public void onCompleted() {
+                        progressDialog.dismiss();
+
                         Log.d(TAG, "In onCompleted()");
                     }
 
@@ -117,6 +128,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onError(Throwable e) {
                         e.printStackTrace();
                         Log.d(TAG, "In onError()");
+                        progressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
