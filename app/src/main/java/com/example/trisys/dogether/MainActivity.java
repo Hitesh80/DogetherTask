@@ -2,6 +2,9 @@ package com.example.trisys.dogether;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -36,8 +39,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final ListView listView = findViewById(R.id.list_view_repos);
-        listView.setAdapter(adapter);
+//        final ListView listView = findViewById(R.id.list_view_repos);
+//        listView.setAdapter(adapter);
+        final RecyclerView recyclerView = findViewById(R.id.list_view_repos);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
         final EditText editTextRepoName = findViewById(R.id.edit_text_repoName);
         final Button buttonSearch = findViewById(R.id.button_search);
         currentRepoName=findViewById(R.id.current_repo_tv);
