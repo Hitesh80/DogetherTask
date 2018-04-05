@@ -10,6 +10,16 @@ public class GitHubRepoIssue {
     private String state;
     private int id;
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    private User user;
+
     public String getTitle() {
         return title;
     }
@@ -51,7 +61,7 @@ public class GitHubRepoIssue {
     }
 
     public String created_at;
-   public String comments_url;
+    public String comments_url;
 
     public int getId() {
         return id;

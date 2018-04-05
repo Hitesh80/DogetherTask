@@ -30,7 +30,7 @@ import rx.schedulers.Schedulers;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    private RepoIssueAdapter adapter = new RepoIssueAdapter();
+    private RepoIssueAdapter adapter;
     private Subscription subscription;
     private TextView currentRepoName;
     private GitHubRepository githubRepo;
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        adapter=new RepoIssueAdapter(this);
         progressDialog = new ProgressDialog(MainActivity.this);
         final RecyclerView recyclerView = findViewById(R.id.list_view_repos);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
