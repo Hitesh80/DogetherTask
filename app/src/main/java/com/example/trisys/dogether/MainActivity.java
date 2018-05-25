@@ -1,8 +1,9 @@
 package com.example.trisys.dogether;
 
 import android.app.ProgressDialog;
-import android.support.v7.app.AppCompatActivity;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +19,8 @@ import com.example.trisys.dogether.Adapter.RepoIssueAdapter;
 import com.example.trisys.dogether.Model.GitHubRepoIssue;
 import com.example.trisys.dogether.Model.GitHubRepository;
 import com.example.trisys.dogether.Utils.GitHubClient;
+import com.example.trisys.dogether.View.SearchButtonState;
+//import com.example.trisys.dogether.databinding.ActivityMainBinding;
 
 import java.util.List;
 
@@ -40,7 +42,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+//        ActivityMainBinding binding= DataBindingUtil.setContentView(this,R.layout.activity_main);
+////        setContentView(R.layout.activity_main);
+//        binding.setSearchButton(new SearchButtonState());
         adapter=new RepoIssueAdapter(this);
         progressDialog = new ProgressDialog(MainActivity.this);
         final RecyclerView recyclerView = findViewById(R.id.list_view_repos);
@@ -136,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onNext(List<GitHubRepoIssue> gitHubRepoIssues) {
                         Log.d(TAG, "In onNext()");
                         adapter.setGitHubRepoIssues(gitHubRepoIssues);
+
                     }
                 });
     }

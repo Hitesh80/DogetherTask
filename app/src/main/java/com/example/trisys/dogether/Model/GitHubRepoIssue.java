@@ -10,15 +10,15 @@ public class GitHubRepoIssue {
     private String state;
     private int id;
 
-    public User getUser() {
-        return user;
+    public UserOne getUserOne() {
+        return userOne;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserOne(UserOne userOne) {
+        this.userOne = userOne;
     }
 
-    private User user;
+    private UserOne userOne;
 
     public String getTitle() {
         return title;

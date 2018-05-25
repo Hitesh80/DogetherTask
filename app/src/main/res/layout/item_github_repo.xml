@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:textSize="24sp"
             android:textStyle="bold"
-            tools:text="user name"/>
+            tools:text="userOne name"/>
     </LinearLayout>>
 
 

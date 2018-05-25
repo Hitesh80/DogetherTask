@@ -4,11 +4,9 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -62,9 +60,9 @@ public class RepoIssueAdapter extends RecyclerView.Adapter<RepoIssueAdapter.GitH
     @Override
     public void onBindViewHolder(GitHubRepoViewHolder holder, int position) {
         GitHubRepoIssue gitHubRepoIssue = gitHubRepoIssues.get(position);
-        Glide.with(context).load(gitHubRepoIssue.getUser().getAvatar_url())
+        Glide.with(context).load(gitHubRepoIssue.getUserOne().getAvatar_url())
                 .into(holder.imageUserImage);
-        holder.textUserName.setText(gitHubRepoIssue.getUser().getLogin());
+        holder.textUserName.setText(gitHubRepoIssue.getUserOne().getLogin());
         holder.textRepoIssueName.setText(position+1+"."+gitHubRepoIssue.getTitle());
         holder.textRepoIssueCommentUrl.setText("Comments Url: " + gitHubRepoIssue.getComments_url());
         holder.textIssueState.setText("State: " + gitHubRepoIssue.getState());
